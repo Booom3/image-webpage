@@ -1,0 +1,27 @@
+.ar-wrapper {
+	width: 100%;
+	/* whatever width you want */
+	display: inline-block;
+	position: relative;
+}
+.ar-wrapper:after {
+	padding-top: 90%;
+	/* 16:9 ratio */
+	display: block;
+	content: '';
+}
+.ar-main {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: .25rem;
+}
+
+video {
+	max-width: 100%;
+}

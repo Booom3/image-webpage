@@ -3,13 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ViewImageComponent } from 'app/images/view-image/view-image.component';
 import { StandardComponent } from 'app/images/standard/standard.component';
+import { UploadComponent } from 'app/upload/upload.component';
+
 import * as RouteConfig from 'route-config';
 
 
 
 let routes: Routes = [
   { path: '', redirectTo: '/boomers', pathMatch: 'full' },
-  { path: 'view-image', component: ViewImageComponent }
+  { path: 'view-image', component: ViewImageComponent },
+  { path: 'users/upload', component: UploadComponent }
 ]
 
 RouteConfig.Routes.forEach((val) => (

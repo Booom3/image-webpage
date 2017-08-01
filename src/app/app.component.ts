@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     RouteConfig.Routes.forEach((val) => {
       this.navs.push({
-        link: '/' + val.name,
+        link: 'user/' + val.name,
         name: val.prettyName
       })
     });

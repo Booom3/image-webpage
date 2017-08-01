@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -11,11 +11,13 @@ import { ImageRoute } from 'app/classes/imageroute';
   templateUrl: './standard.component.html',
   styleUrls: ['./standard.component.css']
 })
-export class StandardComponent implements OnInit {
+export class StandardComponent implements OnInit, OnDestroy {
   activeImages: Image[];
   activeIndex: number = 0;
   images: Image[][] = [];
   data: ImageRoute;
+  public sub;
+  public URL: string;
   constructor(
     private route: ActivatedRoute,
     private http: Http
@@ -43,12 +45,10 @@ export class StandardComponent implements OnInit {
   }
 
   getImages(): void {
-    this.route.data.subscribe((data: ImageRoute) => {
-      this.getImagesApi(data.apiR).then(images => {
-        this.images.push(images);
-        this.activeIndex = this.images.length - 1;
-        this.setImages();
-      });
+    this.getImagesApi(this.URL).then(images => {
+      this.images.push(images);
+      this.activeIndex = this.images.length - 1;
+      this.setImages();
     });
   }
 
@@ -85,6 +85,13 @@ export class StandardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getImages();
+    this.sub = this.route.params.subscribe(params => {
+      this.URL = '/api/' + params.route_id;
+      this.getImages();
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

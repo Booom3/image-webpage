@@ -10,22 +10,11 @@ import * as RouteConfig from 'route-config';
 
 
 let routes: Routes = [
-  { path: '', redirectTo: '/boomers', pathMatch: 'full' },
+  { path: '', redirectTo: '/user/boomers', pathMatch: 'full' },
   { path: 'view-image', component: ViewImageComponent },
   { path: 'user/:route_id', component: StandardComponent },
   { path: 'upload/:route_id', component: UploadComponent }
 ]
-
-RouteConfig.Routes.forEach((val) => (
-  routes.push({
-    path: val.name,
-    component: StandardComponent,
-    data: {
-      apiR: val.apiR,
-      staticR: val.staticR
-    }
-  })
-));
 
 @NgModule({
   imports: [

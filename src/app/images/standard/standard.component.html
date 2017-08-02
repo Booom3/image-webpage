@@ -3,14 +3,14 @@
     <button class="btn btn-primary" style="width: 100%;" (click)="navigateBackwards()">Back</button>
   </div>
   <div class="col-2">
-    <h3 class="text-center">{{activeIndex + 1}}/{{images.length}}</h3>
+    <h3 class="text-center">{{standardService.activeIndex + 1}}/{{standardService.images.length}}</h3>
   </div>
   <div class="col-5">
     <button class="btn btn-primary" style="width: 100%;" (click)="navigateForwards()">Forward</button>
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-md-4" *ngFor="let image of activeImages">
+  <div class="col-12 col-md-4" *ngFor="let image of standardService.activeImages">
     <app-display [image]=image>
 
     </app-display>

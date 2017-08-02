@@ -13,6 +13,8 @@ import { ViewImageComponent } from './images/view-image/view-image.component';
 import { StandardComponent } from './images/standard/standard.component';
 import { UploadComponent } from './upload/upload.component';
 
+import { StandardService } from 'app/images/standard/standard.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { UploadComponent } from './upload/upload.component';
     AppRoutingModule,
     FileUploadModule
   ],
-  providers: [ ],
+  providers: [
+    StandardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

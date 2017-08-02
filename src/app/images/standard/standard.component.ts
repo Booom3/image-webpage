@@ -6,48 +6,48 @@ import 'rxjs/add/operator/toPromise';
 import { Image } from 'app/classes/image';
 import { ImageRoute } from 'app/classes/imageroute';
 
+import { StandardService } from './standard.service';
+
 @Component({
   selector: 'app-standard',
   templateUrl: './standard.component.html',
   styleUrls: ['./standard.component.css']
 })
 export class StandardComponent implements OnInit, OnDestroy {
-  activeImages: Image[];
-  activeIndex: number = 0;
-  images: Image[][] = [];
   data: ImageRoute;
   public sub;
   public URL: string;
   constructor(
     private route: ActivatedRoute,
-    private http: Http
+    private http: Http,
+    public standardService: StandardService
   ) { }
 
   navigateForwards(): void {
-    if (this.activeIndex >= (this.images.length - 1)) {
+    if (this.standardService.activeIndex >= (this.standardService.images.length - 1)) {
       this.getImages();
       return;
     }
-    this.activeIndex++;
+    this.standardService.activeIndex++;
     this.setImages();
   }
 
   navigateBackwards(): void {
-    if (this.activeIndex <= 0) {
+    if (this.standardService.activeIndex <= 0) {
       return;
     }
-    this.activeIndex--;
+    this.standardService.activeIndex--;
     this.setImages();
   }
   
   setImages(): void {
-    this.activeImages = this.images[this.activeIndex];
+    this.standardService.activeImages = this.standardService.images[this.standardService.activeIndex];
   }
 
   getImages(): void {
     this.getImagesApi(this.URL).then(images => {
-      this.images.push(images);
-      this.activeIndex = this.images.length - 1;
+      this.standardService.images.push(images);
+      this.standardService.activeIndex = this.standardService.images.length - 1;
       this.setImages();
     });
   }
@@ -87,7 +87,17 @@ export class StandardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.URL = '/api/' + params.route_id;
-      this.getImages();
+      if (this.standardService.images.length === 0) {
+        this.getImages();
+        this.standardService.previousRoute = params.route_id;
+        return;
+      }
+
+      if (this.standardService.previousRoute !== params.route_id) {
+        this.getImages();
+      }
+      
+      this.standardService.previousRoute = params.route_id;      
     });
   }
 

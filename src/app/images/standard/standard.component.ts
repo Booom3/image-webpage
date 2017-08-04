@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -6,49 +6,49 @@ import 'rxjs/add/operator/toPromise';
 import { Image } from 'app/classes/image';
 import { ImageRoute } from 'app/classes/imageroute';
 
+import { StandardService } from './standard.service';
+
 @Component({
   selector: 'app-standard',
   templateUrl: './standard.component.html',
   styleUrls: ['./standard.component.css']
 })
-export class StandardComponent implements OnInit {
-  activeImages: Image[];
-  activeIndex: number = 0;
-  images: Image[][] = [];
+export class StandardComponent implements OnInit, OnDestroy {
   data: ImageRoute;
+  public sub;
+  public URL: string;
   constructor(
     private route: ActivatedRoute,
-    private http: Http
+    private http: Http,
+    public standardService: StandardService
   ) { }
 
   navigateForwards(): void {
-    if (this.activeIndex >= (this.images.length - 1)) {
+    if (this.standardService.activeIndex >= (this.standardService.images.length - 1)) {
       this.getImages();
       return;
     }
-    this.activeIndex++;
+    this.standardService.activeIndex++;
     this.setImages();
   }
 
   navigateBackwards(): void {
-    if (this.activeIndex <= 0) {
+    if (this.standardService.activeIndex <= 0) {
       return;
     }
-    this.activeIndex--;
+    this.standardService.activeIndex--;
     this.setImages();
   }
   
   setImages(): void {
-    this.activeImages = this.images[this.activeIndex];
+    this.standardService.activeImages = this.standardService.images[this.standardService.activeIndex];
   }
 
   getImages(): void {
-    this.route.data.subscribe((data: ImageRoute) => {
-      this.getImagesApi(data.apiR).then(images => {
-        this.images.push(images);
-        this.activeIndex = this.images.length - 1;
-        this.setImages();
-      });
+    this.getImagesApi(this.URL).then(images => {
+      this.standardService.images.push(images);
+      this.standardService.activeIndex = this.standardService.images.length - 1;
+      this.setImages();
     });
   }
 
@@ -85,6 +85,23 @@ export class StandardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getImages();
+    this.sub = this.route.params.subscribe(params => {
+      this.URL = '/api/' + params.route_id;
+      if (this.standardService.images.length === 0) {
+        this.getImages();
+        this.standardService.previousRoute = params.route_id;
+        return;
+      }
+
+      if (this.standardService.previousRoute !== params.route_id) {
+        this.getImages();
+      }
+      
+      this.standardService.previousRoute = params.route_id;      
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

@@ -4,6 +4,10 @@
     [ngStyle]="{'background-image': 'url(\'' + image.fullpath + '\')'}">
     </div>
   </div>
-  <video *ngIf="image.type === 'video'" class="img-thumbnail" src={{image.fullpath}} autoplay loop muted>
-  </video>
+  <div *ngIf="image.type === 'video'" class="ar-wrapper img-thumbnail">
+    <div class="ar-main">
+      <video muted autoplay loop onloadedmetadata="this.muted = true" src={{image.fullpath}}>
+      </video>
+    </div>
+  </div>
 </a>

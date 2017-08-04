@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from 'app/app.component';
 import { DisplayComponent } from 'app/images/display/display.component';
@@ -10,22 +11,29 @@ import { DisplayComponent } from 'app/images/display/display.component';
 import { AppRoutingModule } from 'app/app-routing/app-routing.module';
 import { ViewImageComponent } from './images/view-image/view-image.component';
 import { StandardComponent } from './images/standard/standard.component';
+import { UploadComponent } from './upload/upload.component';
+
+import { StandardService } from 'app/images/standard/standard.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayComponent,
     ViewImageComponent,
-    StandardComponent
+    StandardComponent,
+    UploadComponent
   ],
   imports: [
     NgbModule.forRoot(),    
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FileUploadModule
   ],
-  providers: [ ],
+  providers: [
+    StandardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

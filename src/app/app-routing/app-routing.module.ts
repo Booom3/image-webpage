@@ -3,25 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ViewImageComponent } from 'app/images/view-image/view-image.component';
 import { StandardComponent } from 'app/images/standard/standard.component';
+import { UploadComponent } from 'app/upload/upload.component';
+
 import * as RouteConfig from 'route-config';
 
 
 
 let routes: Routes = [
-  { path: '', redirectTo: '/boomers', pathMatch: 'full' },
-  { path: 'view-image', component: ViewImageComponent }
+  { path: '', redirectTo: '/user/boomers', pathMatch: 'full' },
+  { path: 'view-image', component: ViewImageComponent },
+  { path: 'user/:route_id', component: StandardComponent },
+  { path: 'upload/:route_id', component: UploadComponent }
 ]
-
-RouteConfig.Routes.forEach((val) => (
-  routes.push({
-    path: val.name,
-    component: StandardComponent,
-    data: {
-      apiR: val.apiR,
-      staticR: val.staticR
-    }
-  })
-));
 
 @NgModule({
   imports: [

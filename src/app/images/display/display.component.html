@@ -1,4 +1,4 @@
-<a [routerLink]="['/view-image']" [queryParams]="{ path: image.fullpath, type: image.type }">
+<a [routerLink]="['/view', route]" [queryParams]="{ path: image.fullpath, type: image.type }">
   <div *ngIf="image.type === 'image'" class="ar-wrapper img-thumbnail">
     <div class="ar-main"
     [ngStyle]="{'background-image': 'url(\'' + image.fullpath + '\')'}">

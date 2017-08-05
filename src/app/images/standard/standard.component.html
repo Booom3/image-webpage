@@ -1,17 +1,23 @@
+<app-route-navigation></app-route-navigation>
 <div class="row">
   <div class="col-5">
-    <button class="btn btn-primary" style="width: 100%;" (click)="navigateBackwards()">Back</button>
+    <button class="btn"
+      [ngClass]="{'btn-primary': standardService.activeIndex !== 0, 'btn-disabled': standardService.activeIndex === 0}"
+      style="width: 100%;" (click)="navigateBackwards()">Back</button>
   </div>
   <div class="col-2">
     <h3 class="text-center">{{standardService.activeIndex + 1}}/{{standardService.images.length}}</h3>
   </div>
   <div class="col-5">
-    <button class="btn btn-primary" style="width: 100%;" (click)="navigateForwards()">Forward</button>
+    <button class="btn btn-primary" style="width: 100%;" (click)="navigateForwards()">
+      <span *ngIf="standardService.activeIndex === standardService.images.length - 1">More</span>
+      <span *ngIf="standardService.activeIndex !== standardService.images.length - 1">Forward</span>
+    </button>
   </div>
 </div>
 <div class="row">
   <div class="col-12 col-md-4" *ngFor="let image of standardService.activeImages">
-    <app-display [image]=image>
+    <app-display [image]="image" [route]="route_id">
 
     </app-display>
   </div>

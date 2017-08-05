@@ -1,0 +1,9 @@
+.sidebar {
+    width: 20%;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        float: right;
+    }
+}

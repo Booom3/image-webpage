@@ -17,6 +17,7 @@ export class StandardComponent implements OnInit, OnDestroy {
   data: ImageRoute;
   public sub;
   public URL: string;
+  public route_id: string;
   constructor(
     private route: ActivatedRoute,
     private http: Http,
@@ -72,7 +73,7 @@ export class StandardComponent implements OnInit, OnDestroy {
           ret.push({
             id: image,
             fullpath: '/assets/images/' + image,
-            type: 'image'
+            type: 'image'            
           });
         });
         ret.push({
@@ -87,6 +88,7 @@ export class StandardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.URL = '/api/' + params.route_id;
+      this.route_id = params.route_id;
       if (this.standardService.images.length === 0) {
         this.getImages();
         this.standardService.previousRoute = params.route_id;

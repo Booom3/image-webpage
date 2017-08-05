@@ -11,7 +11,7 @@ import * as RouteConfig from 'route-config';
 
 let routes: Routes = [
   { path: '', redirectTo: '/user/boomers', pathMatch: 'full' },
-  { path: 'view-image', component: ViewImageComponent },
+  { path: 'view/:route_id', component: ViewImageComponent },
   { path: 'user/:route_id', component: StandardComponent },
   { path: 'upload/:route_id', component: UploadComponent }
 ]

@@ -1,2 +1,15 @@
-<img *ngIf="image_type === 'image'" src={{image_path}} class="img-responsive w-100">
-<video *ngIf="image_type === 'video'" controls autoplay loop src={{image_path}} class="w-100"></video>
+<div>
+    <div class="sidebar">
+        <a [routerLink]="['/user', route_id]">
+            <i class="fa fa-arrow-circle-left" style="font-size: 4em;" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div style="width: 80%; float: left;">
+        <div style="margin: 20px;">
+            <a href={{image_path}} target="_blank">
+                <img *ngIf="image_type === 'image'" src={{image_path}} class="img-responsive w-100">
+                <video *ngIf="image_type === 'video'" controls autoplay loop src={{image_path}} class="w-100"></video>
+            </a>
+        </div>
+    </div>
+</div>

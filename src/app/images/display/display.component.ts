@@ -10,6 +10,8 @@ import { Image } from 'app/classes/image';
 export class DisplayComponent implements OnInit {
   @Input()
   image: Image;
+  @Input()
+  route: string;
   constructor() { }
 
   ngOnInit() {

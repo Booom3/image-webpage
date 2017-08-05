@@ -1,2 +1,5 @@
+<a [routerLink]="['/user', route_id]">
+    <i class="fa fa-arrow-circle-left" style="font-size: 4em;" aria-hidden="true"></i>
+</a>
 <img *ngIf="image_type === 'image'" src={{image_path}} class="img-responsive w-100">
 <video *ngIf="image_type === 'video'" controls autoplay loop src={{image_path}} class="w-100"></video>

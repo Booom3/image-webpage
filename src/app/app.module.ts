@@ -15,6 +15,7 @@ import { UploadComponent } from './upload/upload.component';
 
 import { StandardService } from 'app/images/standard/standard.service';
 import { RouteNavigationComponent } from './navigation/route-navigation/route-navigation.component';
+import { IndexComponent } from './user/route/index/index.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RouteNavigationComponent } from './navigation/route-navigation/route-na
     ViewImageComponent,
     StandardComponent,
     UploadComponent,
-    RouteNavigationComponent
+    RouteNavigationComponent,
+    IndexComponent
   ],
   imports: [
     NgbModule.forRoot(),    

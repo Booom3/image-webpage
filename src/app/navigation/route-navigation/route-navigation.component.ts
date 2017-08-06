@@ -22,7 +22,7 @@ export class RouteNavigationComponent implements OnInit, OnDestroy {
       this.route_id = params.route_id;
       this.tabs = [
         { name: 'User', link: ['/user', this.route_id] },
-        { name: 'Upload', link: ['/upload', this.route_id ] }
+        { name: 'Upload', link: ['/user', this.route_id, 'upload' ] }
       ]
     });
   }

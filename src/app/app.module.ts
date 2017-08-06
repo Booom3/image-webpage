@@ -17,6 +17,8 @@ import { StandardService } from 'app/images/standard/standard.service';
 import { RouteNavigationComponent } from './navigation/route-navigation/route-navigation.component';
 import { IndexComponent } from './user/route/index/index.component';
 
+import * as RouteIndexService from 'app/user/route/index/index.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { IndexComponent } from './user/route/index/index.component';
     FileUploadModule
   ],
   providers: [
-    StandardService
+    StandardService,
+    RouteIndexService.IndexService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import * as RouteConfig from 'route-config';
 
+import { IndexService } from './index.service';
+
 class NavBarTab {
   link: string[];
   name: string;
@@ -14,8 +16,9 @@ class NavBarTab {
 export class IndexComponent implements OnInit, OnDestroy {
   navs: NavBarTab[] = [];
   sub: any;
+  subRoute: any;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, public indexService: IndexService) { }
 
   ngOnInit() {
     this.sub = this.router.events.subscribe(event => {
@@ -28,10 +31,14 @@ export class IndexComponent implements OnInit, OnDestroy {
         name: val.prettyName
       })
     });
+    this.subRoute = this.activatedRoute.params.subscribe(params => {
+      this.indexService.route_id = params.route_id;
+    });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.subRoute.unsubscribe();
   }
 
 }
